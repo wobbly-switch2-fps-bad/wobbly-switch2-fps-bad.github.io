@@ -40,6 +40,8 @@
   .fps small { font-size: 13px; font-weight: 500; color: var(--muted); }
   .good { color: var(--good); } .mid { color: var(--mid); } .low { color: var(--low); }
   .detail { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+  .worst { color: var(--text); font-size: 14px; font-weight: 600; }
+  .worst b { color: var(--low); font-size: 16px; }
   details { margin-top: 28px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
   summary { cursor: pointer; font-weight: 600; }
   details p, details li { color: var(--muted); max-width: 75ch; }
@@ -53,7 +55,7 @@
   <div class="summary">
     <div><b>~19&ndash;20 fps</b><span>typical</span></div>
     <div><b>28 fps</b><span>best clip</span></div>
-    <div><b>15 fps</b><span>worst 1-second window</span></div>
+    <div><b class="low">15 fps</b><span>worst 1-second window</span></div>
     <div><b>67 ms</b><span>most common frame time</span></div>
   </div>
 
@@ -61,47 +63,47 @@
     <figure>
       <video src="clip1.mp4" controls preload="metadata" playsinline></video>
       <figcaption><div class="row"><span class="name">Clip 1</span><span class="fps good">28 <small>fps avg</small></span></div>
-      <div class="detail">Worst 1s: 24 fps &middot; 29 s</div></figcaption>
+      <div class="detail"><span class="worst">Worst 1s: <b>24 fps</b></span> &middot; 29 s</div></figcaption>
     </figure>
     <figure>
       <video src="clip2.mp4" controls preload="metadata" playsinline></video>
       <figcaption><div class="row"><span class="name">Clip 2</span><span class="fps mid">23 <small>fps avg</small></span></div>
-      <div class="detail">Worst 1s: 20 fps &middot; 28 s</div></figcaption>
+      <div class="detail"><span class="worst">Worst 1s: <b>20 fps</b></span> &middot; 28 s</div></figcaption>
     </figure>
     <figure>
       <video src="clip3.mp4" controls preload="metadata" playsinline></video>
       <figcaption><div class="row"><span class="name">Clip 3</span><span class="fps low">20 <small>fps avg</small></span></div>
-      <div class="detail">Worst 1s: 16 fps &middot; one 200 ms hitch &middot; 30 s</div></figcaption>
+      <div class="detail"><span class="worst">Worst 1s: <b>16 fps</b></span> &middot; one 200 ms hitch &middot; 30 s</div></figcaption>
     </figure>
     <figure>
       <video src="clip4.mp4" controls preload="metadata" playsinline></video>
       <figcaption><div class="row"><span class="name">Clip 4</span><span class="fps low">20 <small>fps avg</small></span></div>
-      <div class="detail">Worst 1s: 16 fps &middot; 30 s</div></figcaption>
+      <div class="detail"><span class="worst">Worst 1s: <b>16 fps</b></span> &middot; 30 s</div></figcaption>
     </figure>
     <figure>
       <video src="clip5.mp4" controls preload="metadata" playsinline></video>
       <figcaption><div class="row"><span class="name">Clip 5</span><span class="fps low">19 <small>fps avg</small></span></div>
-      <div class="detail">Worst 1s: 17 fps &middot; 7 s</div></figcaption>
+      <div class="detail"><span class="worst">Worst 1s: <b>17 fps</b></span> &middot; 7 s</div></figcaption>
     </figure>
     <figure>
       <video src="clip6.mp4" controls preload="metadata" playsinline></video>
       <figcaption><div class="row"><span class="name">Clip 6</span><span class="fps low">19 <small>fps avg</small></span></div>
-      <div class="detail">Worst 1s: 18 fps &middot; 8 s</div></figcaption>
+      <div class="detail"><span class="worst">Worst 1s: <b>18 fps</b></span> &middot; 8 s</div></figcaption>
     </figure>
     <figure>
       <video src="clip7.mp4" controls preload="metadata" playsinline></video>
       <figcaption><div class="row"><span class="name">Clip 7</span><span class="fps low">19 <small>fps avg</small></span></div>
-      <div class="detail">Worst 1s: 17 fps &middot; 11 s</div></figcaption>
+      <div class="detail"><span class="worst">Worst 1s: <b>17 fps</b></span> &middot; 11 s</div></figcaption>
     </figure>
     <figure>
       <video src="clip8.mp4" controls preload="metadata" playsinline></video>
       <figcaption><div class="row"><span class="name">Clip 8</span><span class="fps low">19 <small>fps avg</small></span></div>
-      <div class="detail">Worst 1s: 17 fps &middot; 6 s</div></figcaption>
+      <div class="detail"><span class="worst">Worst 1s: <b>17 fps</b></span> &middot; 6 s</div></figcaption>
     </figure>
     <figure>
       <video src="clip9.mp4" controls preload="metadata" playsinline></video>
       <figcaption><div class="row"><span class="name">Clip 9</span><span class="fps low">18.5 <small>fps avg</small></span></div>
-      <div class="detail">Worst 1s: 15 fps &middot; 30 s</div></figcaption>
+      <div class="detail"><span class="worst">Worst 1s: <b>15 fps</b></span> &middot; 30 s</div></figcaption>
     </figure>
   </div>
 
