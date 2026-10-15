@@ -42,9 +42,17 @@
   .detail { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
   .worst { color: var(--text); font-size: 14px; font-weight: 600; }
   .worst b { color: var(--low); font-size: 16px; }
-  details { margin-top: 28px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
-  summary { cursor: pointer; font-weight: 600; }
-  details p, details li { color: var(--muted); max-width: 75ch; }
+  .method { margin-top: 28px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+  .method h2 { font-size: 17px; margin: 0 0 14px; }
+  .method h3 { font-size: 14px; margin: 0 0 6px; }
+  .method p { margin: 0 0 8px; color: var(--muted); font-size: 14px; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .step { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  .eg { color: var(--text) !important; font-variant-numeric: tabular-nums; }
+  .verify { margin-top: 14px; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  pre { margin: 6px 0 10px; padding: 10px 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; overflow-x: auto; }
+  code { font: 13px/1.4 ui-monospace, "SF Mono", Consolas, monospace; color: var(--text); }
+  .note { margin: 14px 0 0 !important; font-size: 13px !important; }
 </style>
 </head>
 <body>
@@ -107,16 +115,32 @@
     </figure>
   </div>
 
-  <details>
-    <summary>How this was measured</summary>
-    <ul>
-      <li>Each capture was decoded frame by frame. A frame counts as new if more than 0.2% of its pixels changed by more than 6 brightness levels from the frame before it. Repeated frames show 0.00% change, so they separate cleanly from new ones.</li>
-      <li>Average fps = unique frames &divide; clip length. "Worst 1s" is the fewest unique frames in any 1-second window.</li>
-      <li>The results stay within about 1 fps when the threshold is changed.</li>
-      <li>The recorder tops out at 30 fps and sometimes skipped capture slots (up to ~20% in clip 9), so treat these numbers as a floor. The game may have run slightly faster in clips 3, 4, 5 and 9.</li>
-      <li>The videos are the original recordings, repackaged from .mov to .mp4 without re-encoding.</li>
-    </ul>
-  </details>
+  <section class="method">
+    <h2>How the numbers were derived</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>1. Find the new frames</h3>
+        <p>The recorder saves up to 30 frames per second. When the game is slower, the same image gets saved twice. Each frame is compared with the one before it. It counts as a new game frame if more than 0.2% of its pixels changed. Repeated frames show exactly 0.00% change, so they're easy to tell apart.</p>
+      </div>
+      <div class="step">
+        <h3>2. FPS avg</h3>
+        <p>New frames &divide; clip length.</p>
+        <p class="eg">Clip 3: 790 frames recorded, 613 new, over 30.0&nbsp;s &rarr; <b>20.4 fps</b></p>
+      </div>
+      <div class="step">
+        <h3>3. Worst 1s</h3>
+        <p>A 1-second window slides along the clip in 0.25&nbsp;s steps, counting new frames at each position. The lowest count is the worst second.</p>
+        <p class="eg">Clip 9: lowest 1-second window has 15 new frames &rarr; <b>15 fps</b></p>
+      </div>
+    </div>
+    <div class="verify">
+      <h3>Check it yourself</h3>
+      <p>Download any clip and run ffmpeg's built-in duplicate-frame filter. The final <code>frame=</code> count is the number of new frames. Divide it by the clip length:</p>
+      <pre><code>ffmpeg -i clip3.mp4 -an -vf mpdecimate -fps_mode vfr -f null -</code></pre>
+      <p>This independent method gives 611 frames for clip 3 (vs 613), 28.0&nbsp;fps for clip 1 (vs 28.2), and 18.5&nbsp;fps for clip 9 (vs 18.5).</p>
+    </div>
+    <p class="note">Caveats: the recorder tops out at 30&nbsp;fps and sometimes missed capture slots (up to ~20% in clip 9), so treat these numbers as a floor. The game may have run slightly faster in clips 3, 4, 5 and 9. The videos are the original recordings, repackaged from .mov to .mp4 without re-encoding.</p>
+  </section>
 </main>
 </body>
 </html>
